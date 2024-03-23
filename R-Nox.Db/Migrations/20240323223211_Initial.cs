@@ -16,79 +16,79 @@ namespace R_Nox.Db.Migrations
                 .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
             migrationBuilder.CreateTable(
-                name: "Assemblies",
+                name: "assembly",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assemblies", x => x.id);
+                    table.PrimaryKey("PK_assembly", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Modules",
+                name: "module",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     AssemblyId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false)
+                    type = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Modules", x => x.id);
+                    table.PrimaryKey("PK_module", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Modules_Assemblies_AssemblyId",
+                        name: "FK_module_assembly_AssemblyId",
                         column: x => x.AssemblyId,
-                        principalTable: "Assemblies",
+                        principalTable: "assembly",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Telemetries",
+                name: "telemetry",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
-                    Telemetry = table.Column<JsonElement>(type: "jsonb", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModuleId = table.Column<Guid>(type: "uuid", nullable: false)
+                    telemetry = table.Column<JsonElement>(type: "jsonb", nullable: false),
+                    timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    module_id = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Telemetries", x => x.id);
+                    table.PrimaryKey("PK_telemetry", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Telemetries_Modules_ModuleId",
-                        column: x => x.ModuleId,
-                        principalTable: "Modules",
+                        name: "FK_telemetry_module_module_id",
+                        column: x => x.module_id,
+                        principalTable: "module",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Modules_AssemblyId",
-                table: "Modules",
+                name: "IX_module_AssemblyId",
+                table: "module",
                 column: "AssemblyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Telemetries_ModuleId",
-                table: "Telemetries",
-                column: "ModuleId");
+                name: "IX_telemetry_module_id",
+                table: "telemetry",
+                column: "module_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Telemetries");
+                name: "telemetry");
 
             migrationBuilder.DropTable(
-                name: "Modules");
+                name: "module");
 
             migrationBuilder.DropTable(
-                name: "Assemblies");
+                name: "assembly");
         }
     }
 }

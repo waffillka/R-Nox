@@ -35,7 +35,8 @@ namespace R_Nox.Db.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,7 +46,7 @@ namespace R_Nox.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assemblies");
+                    b.ToTable("assembly");
                 });
 
             modelBuilder.Entity("R_Nox.Db.Entities.ModuleEntity", b =>
@@ -59,15 +60,15 @@ namespace R_Nox.Db.Migrations
                     b.Property<Guid>("AssemblyId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AssemblyId");
 
-                    b.ToTable("Modules");
+                    b.ToTable("module");
                 });
 
             modelBuilder.Entity("R_Nox.Db.Entities.TelemetryEntity", b =>
@@ -79,19 +80,22 @@ namespace R_Nox.Db.Migrations
                         .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<Guid>("ModuleId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("module_id");
 
                     b.Property<JsonElement>("Telemetry")
-                        .HasColumnType("jsonb");
+                        .HasColumnType("jsonb")
+                        .HasColumnName("telemetry");
 
                     b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("timestamp");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Telemetries");
+                    b.ToTable("telemetry");
                 });
 
             modelBuilder.Entity("R_Nox.Db.Entities.ModuleEntity", b =>

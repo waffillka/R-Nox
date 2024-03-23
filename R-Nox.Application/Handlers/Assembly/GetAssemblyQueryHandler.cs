@@ -1,5 +1,7 @@
 using System.Globalization;
+using System.Net;
 using R_Nox.Db.Repositories.Interfaces;
+using R_Nox.Domain.Exceptions;
 using R_Nox.Services.Mappers;
 using R_Nox.Services.Models.DTOs.Assembly;
 using R_Nox.Services.Queries.Assembly;
@@ -17,7 +19,7 @@ public class GetAssemblyQueryHandler(IAssemblyRepository assemblyRepository)
         
         if (result == null)
         {
-            //throw new NotFoundException();
+            throw new HttpStatusException(HttpStatusCode.NotFound, "Cannot find assembly.");
         }
         
         return result.ToAssemblyDto();

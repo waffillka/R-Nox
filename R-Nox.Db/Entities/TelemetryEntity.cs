@@ -4,17 +4,19 @@ using System.Text.Json;
 
 namespace R_Nox.Db.Entities;
 
+[Table("telemetry")]
 public class TelemetryEntity : BaseEntity
 {
     [Required]
-    [Column(TypeName = "jsonb")]
+    [Column("telemetry", TypeName = "jsonb")]
     public JsonElement Telemetry { get; set; }
 
+    [Column("timestamp")] 
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
     [ForeignKey("module_id")] 
-     public Guid ModuleId { get; set; }
+    [Column("module_id")] 
+    public Guid ModuleId { get; set; }
 
     public virtual ModuleEntity Module { get; set; }
-    
 }

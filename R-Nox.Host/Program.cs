@@ -1,4 +1,5 @@
 using R_Nox.Db.Dependencies;
+using R_Nox.Middlewares;
 using R_Nox.Services.Dependencies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

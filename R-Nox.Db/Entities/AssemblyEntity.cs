@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace R_Nox.Db.Entities;
 
+[Table("assembly")]
 public class AssemblyEntity : BaseEntity
 {
     [Required]
@@ -10,6 +11,7 @@ public class AssemblyEntity : BaseEntity
     [StringLength(100)]
     public string Name { get; set; }
 
+    [Column("description")] 
     [StringLength(500)]
     public string Description { get; set; }
     
