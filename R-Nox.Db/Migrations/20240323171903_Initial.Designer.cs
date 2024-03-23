@@ -13,7 +13,7 @@ using R_Nox.Db.Context;
 namespace R_Nox.Db.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240323104511_Initial")]
+    [Migration("20240323171903_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,6 +24,7 @@ namespace R_Nox.Db.Migrations
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("R_Nox.Db.Entities.AssemblyEntity", b =>
@@ -31,7 +32,8 @@ namespace R_Nox.Db.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -54,7 +56,8 @@ namespace R_Nox.Db.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<Guid>("AssemblyId")
                         .HasColumnType("uuid");
@@ -75,7 +78,8 @@ namespace R_Nox.Db.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<Guid>("ModuleId")
                         .HasColumnType("uuid");

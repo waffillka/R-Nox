@@ -12,6 +12,29 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.HasPostgresExtension("uuid-ossp");
+        
+        builder.Entity<AssemblyEntity>()
+            .Property(x => x.Id)
+            .HasColumnName("id")
+            .HasColumnType("uuid")
+            .HasDefaultValueSql("uuid_generate_v4()")
+            .IsRequired();
+        
+        builder.Entity<ModuleEntity>()
+            .Property(x => x.Id)
+            .HasColumnName("id")
+            .HasColumnType("uuid")
+            .HasDefaultValueSql("uuid_generate_v4()")
+            .IsRequired(); 
+        
+        builder.Entity<TelemetryEntity>()
+            .Property(x => x.Id)
+            .HasColumnName("id")
+            .HasColumnType("uuid")
+            .HasDefaultValueSql("uuid_generate_v4()")
+            .IsRequired();
+        
         base.OnModelCreating(builder);
     }
 }
