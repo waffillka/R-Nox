@@ -52,7 +52,7 @@ namespace R_Nox.Db.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
-                    Telemetry = table.Column<JsonDocument>(type: "jsonb", nullable: false),
+                    Telemetry = table.Column<JsonElement>(type: "jsonb", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ModuleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

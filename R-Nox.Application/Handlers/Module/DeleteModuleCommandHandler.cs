@@ -4,14 +4,10 @@ using R_Nox.Services.Commands.Module;
 
 namespace R_Nox.Services.Handlers.Module;
 
-public class DeleteModuleCommandHandler : BaseRequestHandler<DeleteModuleCommand, Unit>
+public class DeleteModuleCommandHandler(IModuleRepository moduleRepository)
+    : BaseRequestHandler<DeleteModuleCommand, Unit>
 {
-    private readonly IModuleRepository _moduleRepository;
-
-    public DeleteModuleCommandHandler(IModuleRepository moduleRepository)
-    {
-        _moduleRepository = moduleRepository ?? throw new ArgumentNullException(nameof(moduleRepository));
-    }
+    private readonly IModuleRepository _moduleRepository = moduleRepository ?? throw new ArgumentNullException(nameof(moduleRepository));
 
 
     public override async Task<Unit> HandleInternalAsync(DeleteModuleCommand request, CancellationToken ct = default)

@@ -5,14 +5,10 @@ using R_Nox.Services.Models.DTOs.Assembly;
 
 namespace R_Nox.Services.Handlers.Assembly;
 
-public class AddAssemblyCommandHandler : BaseRequestHandler<AddAssemblyCommand, AssemblyDto>
+public class AddAssemblyCommandHandler(IAssemblyRepository assemblyRepository)
+    : BaseRequestHandler<AddAssemblyCommand, AssemblyDto>
 {
-    private readonly IAssemblyRepository _assemblyRepository;
-
-    public AddAssemblyCommandHandler(IAssemblyRepository assemblyRepository)
-    {
-        _assemblyRepository = assemblyRepository ?? throw new ArgumentNullException(nameof(assemblyRepository));
-    }
+    private readonly IAssemblyRepository _assemblyRepository = assemblyRepository ?? throw new ArgumentNullException(nameof(assemblyRepository));
 
     public override async Task<AssemblyDto> HandleInternalAsync(AddAssemblyCommand request, CancellationToken ct)
     {

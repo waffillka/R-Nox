@@ -6,15 +6,10 @@ using R_Nox.Db.Repositories.Interfaces;
 
 namespace R_Nox.Db.Repositories;
 
-public abstract class Repository<TEntity> : IRepository<TEntity>
+public abstract class Repository<TEntity>(AppDbContext dbContext) : IRepository<TEntity>
     where TEntity : BaseEntity
 {
-    protected AppDbContext DbContext { get; }
-
-    public Repository(AppDbContext dbContext)
-    {
-        DbContext = dbContext;
-    }
+    protected AppDbContext DbContext { get; } = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
     public virtual async Task Delete(Expression<Func<TEntity, bool>> expression, CancellationToken ct = default)
     {

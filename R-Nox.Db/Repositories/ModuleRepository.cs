@@ -4,10 +4,4 @@ using R_Nox.Db.Repositories.Interfaces;
 
 namespace R_Nox.Db.Repositories;
 
-public class ModuleRepository : Repository<ModuleEntity>, IModuleRepository
-{
-    public ModuleRepository(AppDbContext dbContext)
-        : base(dbContext)
-    {
-    }
-}
+public class ModuleRepository(AppDbContext dbContext) : Repository<ModuleEntity>(dbContext), IModuleRepository;

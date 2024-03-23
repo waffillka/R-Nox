@@ -8,15 +8,10 @@ namespace R_Nox.Controllers;
 
 [ApiController]
 [Route("api/module")]
-public class ModuleController : ControllerBase
+public class ModuleController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-    public ModuleController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAssembly(Guid id, CancellationToken ct = default)
     {

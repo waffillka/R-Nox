@@ -4,14 +4,10 @@ using R_Nox.Services.Commands.Assembly;
 
 namespace R_Nox.Services.Handlers.Assembly;
 
-public class DeleteAssemblyCommandHandler : BaseRequestHandler<DeleteAssemblyCommand, Unit>
+public class DeleteAssemblyCommandHandler(IAssemblyRepository assemblyRepository)
+    : BaseRequestHandler<DeleteAssemblyCommand, Unit>
 {
-    private readonly IAssemblyRepository _assemblyRepository;
-
-    public DeleteAssemblyCommandHandler(IAssemblyRepository assemblyRepository)
-    {
-        _assemblyRepository = assemblyRepository ?? throw new ArgumentNullException(nameof(assemblyRepository));
-    }
+    private readonly IAssemblyRepository _assemblyRepository = assemblyRepository ?? throw new ArgumentNullException(nameof(assemblyRepository));
 
     public override async Task<Unit> HandleInternalAsync(DeleteAssemblyCommand request, CancellationToken ct)
     {

@@ -15,11 +15,4 @@
       <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Commands\Telemetry\" />
-      <Folder Include="Handlers\Telemetry\" />
-      <Folder Include="Models\DTOs\Telemetry\" />
-      <Folder Include="Queries\Telemetry\" />
-    </ItemGroup>
-
 </Project>

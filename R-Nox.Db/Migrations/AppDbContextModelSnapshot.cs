@@ -81,8 +81,7 @@ namespace R_Nox.Db.Migrations
                     b.Property<Guid>("ModuleId")
                         .HasColumnType("uuid");
 
-                    b.Property<JsonDocument>("Telemetry")
-                        .IsRequired()
+                    b.Property<JsonElement>("Telemetry")
                         .HasColumnType("jsonb");
 
                     b.Property<DateTime>("Timestamp")

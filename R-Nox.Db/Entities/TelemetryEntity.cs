@@ -4,11 +4,11 @@ using System.Text.Json;
 
 namespace R_Nox.Db.Entities;
 
-public class TelemetryEntity : BaseEntity, IDisposable
+public class TelemetryEntity : BaseEntity
 {
     [Required]
     [Column(TypeName = "jsonb")]
-    public JsonDocument Telemetry { get; set; }
+    public JsonElement Telemetry { get; set; }
 
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
@@ -16,6 +16,5 @@ public class TelemetryEntity : BaseEntity, IDisposable
      public Guid ModuleId { get; set; }
 
     public virtual ModuleEntity Module { get; set; }
-
-    public void Dispose() => Telemetry?.Dispose();
+    
 }

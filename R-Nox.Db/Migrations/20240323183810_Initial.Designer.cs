@@ -13,7 +13,7 @@ using R_Nox.Db.Context;
 namespace R_Nox.Db.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240323171903_Initial")]
+    [Migration("20240323183810_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -84,8 +84,7 @@ namespace R_Nox.Db.Migrations
                     b.Property<Guid>("ModuleId")
                         .HasColumnType("uuid");
 
-                    b.Property<JsonDocument>("Telemetry")
-                        .IsRequired()
+                    b.Property<JsonElement>("Telemetry")
                         .HasColumnType("jsonb");
 
                     b.Property<DateTime>("Timestamp")

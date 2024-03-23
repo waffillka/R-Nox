@@ -8,14 +8,9 @@ namespace R_Nox.Controllers;
 
 [ApiController]
 [Route("api/assembly")]
-public class AssemblyController : ControllerBase
+public class AssemblyController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public AssemblyController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAssembly(Guid id, CancellationToken ct = default)
@@ -30,14 +25,14 @@ public class AssemblyController : ControllerBase
         var result = await _mediator.Send(new DeleteAssemblyCommand(id), ct);
         return Ok();
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> CreateAssembly(CreateAssemblyDto data, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new AddAssemblyCommand(data), ct);
         return Ok(result);
-    } 
-    
+    }
+
     [HttpPut]
     public async Task<IActionResult> UpdateAssembly(AssemblyDto data, CancellationToken ct = default)
     {

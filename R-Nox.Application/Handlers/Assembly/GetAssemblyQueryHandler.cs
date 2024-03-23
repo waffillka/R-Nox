@@ -6,14 +6,10 @@ using R_Nox.Services.Queries.Assembly;
 
 namespace R_Nox.Services.Handlers.Assembly;
 
-public class GetAssemblyQueryHandler : BaseRequestHandler<GetAssemblyByIdQuery, AssemblyDto>
+public class GetAssemblyQueryHandler(IAssemblyRepository assemblyRepository)
+    : BaseRequestHandler<GetAssemblyByIdQuery, AssemblyDto>
 {
-    private readonly IAssemblyRepository _assemblyRepository;
-
-    public GetAssemblyQueryHandler(IAssemblyRepository assemblyRepository)
-    {
-        _assemblyRepository = assemblyRepository ?? throw new ArgumentNullException(nameof(assemblyRepository));
-    }
+    private readonly IAssemblyRepository _assemblyRepository = assemblyRepository ?? throw new ArgumentNullException(nameof(assemblyRepository));
 
     public override async Task<AssemblyDto> HandleInternalAsync(GetAssemblyByIdQuery request, CancellationToken ct)
     {

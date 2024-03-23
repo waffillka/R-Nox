@@ -4,10 +4,4 @@ using R_Nox.Db.Repositories.Interfaces;
 
 namespace R_Nox.Db.Repositories;
 
-public class AssemblyRepository : Repository<AssemblyEntity>, IAssemblyRepository
-{
-    public AssemblyRepository(AppDbContext dbContext)
-        : base(dbContext)
-    {
-    }
-}
+public class AssemblyRepository(AppDbContext dbContext) : Repository<AssemblyEntity>(dbContext), IAssemblyRepository;

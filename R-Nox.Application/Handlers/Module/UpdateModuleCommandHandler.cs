@@ -5,14 +5,10 @@ using R_Nox.Services.Models.DTOs.Module;
 
 namespace R_Nox.Services.Handlers.Module;
 
-public class UpdateModuleCommandHandler : BaseRequestHandler<UpdateModuleCommand, ModuleDto>
+public class UpdateModuleCommandHandler(IModuleRepository moduleRepository)
+    : BaseRequestHandler<UpdateModuleCommand, ModuleDto>
 {
-    private readonly IModuleRepository _moduleRepository;
-
-    public UpdateModuleCommandHandler(IModuleRepository moduleRepository)
-    {
-        _moduleRepository = moduleRepository ?? throw new ArgumentNullException(nameof(moduleRepository));
-    }
+    private readonly IModuleRepository _moduleRepository = moduleRepository ?? throw new ArgumentNullException(nameof(moduleRepository));
 
     public override async Task<ModuleDto> HandleInternalAsync(UpdateModuleCommand request,
         CancellationToken ct = default)
